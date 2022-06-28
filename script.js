@@ -1,3 +1,0 @@
-function HELP() {
-    return 'ldfldsf';
-}
