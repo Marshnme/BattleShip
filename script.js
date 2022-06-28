@@ -1,0 +1,3 @@
+function HELP() {
+    return 'ldfldsf';
+}
