@@ -1,4 +1,4 @@
-import { shipFactory } from '../shipFactory';
+import shipFactory from '../shipFactory';
 
 const newShip = shipFactory(4);
 test('creates ship', () => {
@@ -13,6 +13,13 @@ test('ship tracks hits to self', () => {
 test('ship doesnt track hit if larger than length', () => {
     newShip.hit(27);
     expect(newShip.hitLocations).not.toContain(27);
+});
+
+test('ship doesnt track hit if smaller than length', () => {
+    newShip.hit(-1);
+    newShip.hit(0);
+    expect(newShip.hitLocations).not.toContain(-1);
+    expect(newShip.hitLocations).not.toContain(0);
 });
 
 test('ship doesnt track same hit twice', () => {

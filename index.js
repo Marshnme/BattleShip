@@ -1,4 +1,4 @@
-import { shipFactory } from './scripts/shipFactory.js';
+import shipFactory from './scripts/shipFactory.js';
 
 const newShip = shipFactory(4);
 console.log(newShip);
