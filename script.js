@@ -30,5 +30,6 @@ firstBoard.receiveAttack('B-4');
 console.log('break');
 firstBoard.receiveAttack('A-9');
 firstBoard.receiveAttack('A-7');
+firstBoard.receiveAttack('A-6');
 
 console.log(firstBoard);

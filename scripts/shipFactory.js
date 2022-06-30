@@ -6,7 +6,7 @@ const shipFactory = (length) => {
         if (hitLocations.includes(num)) {
             return 'already hit';
         }
-        if (num <= length && num > 0) {
+        if (hitLocations.length < length) {
             this.hitLocations.push(num);
         } else {
             return 'You missed';
