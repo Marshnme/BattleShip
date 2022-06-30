@@ -16,7 +16,6 @@ firstBoard.placeShip(2, 'A-6', 'A-7');
 
 console.log(firstBoard);
 
-firstBoard.receiveAttack('A-1');
 firstBoard.receiveAttack('A-2');
 firstBoard.receiveAttack('A-3');
 firstBoard.receiveAttack('A-4');
@@ -28,8 +27,10 @@ console.log('break');
 firstBoard.receiveAttack('B-9');
 firstBoard.receiveAttack('B-4');
 console.log('break');
-firstBoard.receiveAttack('A-9');
-firstBoard.receiveAttack('A-7');
+firstBoard.receiveAttack('A-1');
+firstBoard.receiveAttack('D-1');
+firstBoard.receiveAttack('C-1');
 firstBoard.receiveAttack('A-6');
+firstBoard.receiveAttack('A-7');
 
 console.log(firstBoard);
