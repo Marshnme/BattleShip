@@ -20,7 +20,7 @@ firstBoard.receiveAttack('A-2');
 firstBoard.receiveAttack('A-3');
 firstBoard.receiveAttack('A-4');
 console.log('break');
-firstBoard.receiveAttack('B-1');
+// firstBoard.receiveAttack('B-1');
 firstBoard.receiveAttack('B-2');
 firstBoard.receiveAttack('B-3');
 console.log('break');

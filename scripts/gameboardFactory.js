@@ -88,6 +88,7 @@ const gameBoardFactory = () => {
                 ) {
                     if (cord1 === `${shipCord1FirstValue}-${[i]}`) {
                         ship.ship.hit(cord1);
+                        ship.ship.destroy();
                     }
                     if (!allShipCords.includes(cord1)) {
                         missedShot(cord1);
@@ -107,6 +108,7 @@ const gameBoardFactory = () => {
                         cord1 === `${letterColumns[i]}-${shipCord1SecondValue}`
                     ) {
                         ship.ship.hit(cord1);
+                        ship.ship.destroy();
                     }
                     if (!allShipCords.includes(cord1)) {
                         missedShot(cord1);

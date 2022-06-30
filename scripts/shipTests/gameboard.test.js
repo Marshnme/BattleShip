@@ -46,3 +46,11 @@ test('tracks hits of ships', () => {
     expect(testBoard.ships[0].ship.hitLocations).toEqual(['D-1']);
     expect(testBoard.ships[1].ship.hitLocations).toEqual(['A-6']);
 });
+
+test('tracks if ship sinks on all cords hit', () => {
+    testBoard.receiveAttack('A-7');
+
+    // console.log(testBoard.ships[1].ship.hitLocations);
+
+    expect(testBoard.ships[1].ship.sunk).toEqual(true);
+});
