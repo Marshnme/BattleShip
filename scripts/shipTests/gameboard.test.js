@@ -54,3 +54,12 @@ test('tracks if ship sinks on all cords hit', () => {
 
     expect(testBoard.ships[1].ship.sunk).toEqual(true);
 });
+
+test('check if all ships are sunk', () => {
+    testBoard.receiveAttack('A-1');
+    testBoard.receiveAttack('B-1');
+    testBoard.receiveAttack('C-1');
+    testBoard.allShipsDestroyed();
+
+    expect(testBoard.allShipsSank).toEqual(true);
+});

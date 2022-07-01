@@ -4,6 +4,7 @@ const gameBoardFactory = () => {
     const letterColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     const missedShots = [];
     const allShipCords = [];
+    const allShipsSank = false;
 
     function placeShip(length, cord1, cord2) {
         if (!this.ships) {
@@ -96,9 +97,7 @@ const gameBoardFactory = () => {
                 }
             }
             // row ship hit detection
-            // if second values are the same (numbers b-1 d-1)
             if (shipCord1SecondValue === shipCord2SecondValue) {
-                // loop through array of letters,finding indexOf
                 for (
                     let i = letterColumns.indexOf(shipCord1FirstValue);
                     i <= letterColumns.indexOf(shipCord2FirstValue);
@@ -118,7 +117,20 @@ const gameBoardFactory = () => {
         });
     }
 
-    return { placeShip, receiveAttack, missedShots };
+    function allShipsDestroyed() {
+        for (let i = 0; i < this.ships.length; i++) {
+            if (this.ships[i].ship.sunk === false) {
+                this.allShipsSank = false;
+                return;
+            }
+            if (this.ships[i].ship.sunk === true) {
+                this.allShipsSank = true;
+            }
+        }
+        console.log(this.allShipsSank);
+    }
+
+    return { placeShip, receiveAttack, missedShots, allShipsDestroyed };
 };
 
 export { gameBoardFactory };
