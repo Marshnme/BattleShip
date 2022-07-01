@@ -1,5 +1,6 @@
 import shipFactory from './scripts/shipFactory.js';
 import { gameBoardFactory } from './scripts/gameboardFactory.js';
+import player from './scripts/player-ai.js';
 
 // const newShip = shipFactory(4);
 // console.log(newShip);
@@ -21,8 +22,8 @@ firstBoard.receiveAttack('A-3');
 firstBoard.receiveAttack('A-4');
 console.log('break');
 firstBoard.receiveAttack('B-1');
-firstBoard.receiveAttack('B-2');
-firstBoard.receiveAttack('B-3');
+// firstBoard.receiveAttack('B-2');
+// firstBoard.receiveAttack('B-3');
 console.log('break');
 firstBoard.receiveAttack('B-9');
 firstBoard.receiveAttack('B-4');
@@ -34,3 +35,10 @@ firstBoard.receiveAttack('A-6');
 firstBoard.receiveAttack('A-7');
 firstBoard.allShipsDestroyed();
 console.log(firstBoard);
+
+const human = player('josh', firstBoard);
+
+const ai = player('ai', firstBoard);
+
+human.attack('B-2');
+ai.aiAttack();

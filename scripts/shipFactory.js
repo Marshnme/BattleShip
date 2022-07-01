@@ -4,12 +4,12 @@ const shipFactory = (length) => {
 
     function hit(num) {
         if (hitLocations.includes(num)) {
-            return 'already hit';
+            return console.log('already hit');
         }
         if (hitLocations.length < length) {
             this.hitLocations.push(num);
         } else {
-            return 'You missed';
+            return console.log('You missed');
         }
     }
 
