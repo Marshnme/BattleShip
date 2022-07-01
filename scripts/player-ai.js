@@ -4,12 +4,17 @@ const player = (playerName, boardToAttack, ai = false) => {
     const allAttacks = [];
 
     function attack(cord) {
+        if (this.allAttacks.includes(cord)) {
+            return console.log('attack already made');
+        }
         boardToAttack.receiveAttack(cord);
+        this.allAttacks.push(cord);
     }
 
     function aiAttack() {
         const randomLetter =
             columns[Math.floor(Math.random() * columns.length)];
+
         console.log(randomLetter);
 
         const randomNumber = rows[Math.floor(Math.random() * rows.length)];
@@ -17,9 +22,15 @@ const player = (playerName, boardToAttack, ai = false) => {
         console.log(randomNumber);
         const cord = `${randomLetter}-${randomNumber}`;
         console.log(cord);
+
+        if (this.allAttacks.includes(cord)) {
+            console.log('attack already made');
+            aiAttack();
+        }
         boardToAttack.receiveAttack(cord);
+        this.allAttacks.push(cord);
     }
-    return { playerName, attack, aiAttack };
+    return { playerName, attack, aiAttack, allAttacks };
 };
 
 export default player;
