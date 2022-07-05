@@ -2,6 +2,7 @@ import shipFactory from './shipFactory.js';
 
 const gameBoardFactory = () => {
     const letterColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    const numberRows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
     const missedShots = [];
     const allShipCords = [];
     const allShipsSank = false;
@@ -18,10 +19,10 @@ const gameBoardFactory = () => {
     }
 
     function missedShot(cord1) {
-        if (missedShots.includes(cord1)) {
+        if (this.missedShots.includes(cord1)) {
             return;
         }
-        missedShots.push(cord1);
+        this.missedShots.push(cord1);
     }
 
     function findAllShipCord(allShips) {
@@ -121,16 +122,44 @@ const gameBoardFactory = () => {
         for (let i = 0; i < this.ships.length; i++) {
             if (this.ships[i].ship.sunk === false) {
                 this.allShipsSank = false;
-                return;
+                return false;
             }
             if (this.ships[i].ship.sunk === true) {
                 this.allShipsSank = true;
+                return true;
             }
         }
         console.log(this.allShipsSank);
     }
 
-    return { placeShip, receiveAttack, missedShots, allShipsDestroyed };
+    function renderBoard() {
+        const gameboardParent = document.querySelector('.gameboards');
+        const boardHolder = document.createElement('div');
+        for (let i = 0; i < letterColumns.length; i++) {
+            const letterTiles = document.createElement('div');
+            letterTiles.classList.add('letter-tiles');
+            letterTiles.textContent = `${letterColumns[i]}`;
+            gameboardParent.appendChild(boardHolder);
+            for (let j = 0; j < numberRows.length; j++) {
+                const numberTiles = document.createElement('div');
+                numberTiles.textContent = `${numberRows[j]}`;
+                numberTiles.classList.add(
+                    `${letterColumns[i]}-${numberRows[j]}`
+                );
+                letterTiles.appendChild(numberTiles);
+            }
+            gameboardParent.appendChild(letterTiles);
+        }
+    }
+
+    return {
+        placeShip,
+        receiveAttack,
+        missedShots,
+        allShipsDestroyed,
+        allShipsSank,
+        renderBoard,
+    };
 };
 
 export { gameBoardFactory };
