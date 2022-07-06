@@ -4,7 +4,7 @@ import player from './player-ai.js';
 
 const gameLoop = () => {
     const playerBoard = gameBoardFactory();
-    const aiBoard = gameBoardFactory();
+    const aiBoard = gameBoardFactory(true);
 
     playerBoard.placeShip(1, 'A-1', 'A-1');
     playerBoard.placeShip(4, 'C-4', 'F-4');
@@ -30,6 +30,7 @@ const gameLoop = () => {
     // }
 
     playerBoard.renderBoard();
+    aiBoard.renderBoard();
 };
 
 gameLoop();

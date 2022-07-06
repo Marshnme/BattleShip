@@ -1,3 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+}
+
+html{
+    height:100vh;
+}
+
+body,.gameboards{
+    height: 100%;
+}
+
+
 .gameboards{
     display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.board-holder{
+    display: flex;
+}
+
+.letter-tiles{
+    text-align: center;
 }

@@ -1,6 +1,6 @@
 import shipFactory from './shipFactory.js';
 
-const gameBoardFactory = () => {
+const gameBoardFactory = (ai = false) => {
     const letterColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     const numberRows = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
     const missedShots = [];
@@ -134,7 +134,10 @@ const gameBoardFactory = () => {
 
     function renderBoard() {
         const gameboardParent = document.querySelector('.gameboards');
+        const boardTitle = document.createElement('h2');
+        boardTitle.textContent = `${ai ? 'AI Board' : 'Player Board'}`;
         const boardHolder = document.createElement('div');
+        boardHolder.classList.add('board-holder');
         for (let i = 0; i < letterColumns.length; i++) {
             const letterTiles = document.createElement('div');
             letterTiles.classList.add('letter-tiles');
@@ -147,8 +150,10 @@ const gameBoardFactory = () => {
                     `${letterColumns[i]}-${numberRows[j]}`
                 );
                 letterTiles.appendChild(numberTiles);
+                boardHolder.appendChild(letterTiles);
             }
-            gameboardParent.appendChild(letterTiles);
+            boardHolder.prepend(boardTitle);
+            gameboardParent.appendChild(boardHolder);
         }
     }
 
