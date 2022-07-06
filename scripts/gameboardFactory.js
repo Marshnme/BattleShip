@@ -141,19 +141,21 @@ const gameBoardFactory = (ai = false) => {
         boardHolder.classList.add('board-holder');
         const board = document.createElement('div');
         board.classList.add('board');
-        for (let i = 0; i < letterColumns.length; i++) {
-            const letterTiles = document.createElement('div');
-            letterTiles.classList.add('letter-tiles');
-            letterTiles.textContent = `${letterColumns[i]}`;
+        for (let i = 0; i < letterColumns.length + 1; i++) {
+            const column = document.createElement('div');
+            column.classList.add('column', `column-${i}`);
+            column.textContent = `${
+                letterColumns[i - 1] ? letterColumns[i - 1] : 'nothin'
+            }`;
             gameboardParent.appendChild(boardHolder);
             for (let j = 0; j < numberRows.length; j++) {
                 const numberTiles = document.createElement('div');
                 numberTiles.textContent = `${numberRows[j]}`;
                 numberTiles.classList.add(
-                    `${letterColumns[i]}-${numberRows[j]}`
+                    `${letterColumns[i - 1]}-${numberRows[j]}`
                 );
-                letterTiles.appendChild(numberTiles);
-                board.appendChild(letterTiles);
+                column.appendChild(numberTiles);
+                board.appendChild(column);
                 boardHolder.appendChild(board);
             }
             boardHolder.prepend(boardTitle);

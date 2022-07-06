@@ -32,10 +32,15 @@ body,.gameboards{
     text-align: center;
 }
 
-.letter-tiles{
+.column{
     text-align: center;
 }
 
-.letter-tiles > *{
+.column > *{
     padding:.5rem 1rem;
+    border:1px solid black;
+}
+
+.column-0 > *{
+    border:1px solid white;
 }
