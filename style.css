@@ -36,9 +36,18 @@ body,.gameboards{
     text-align: center;
 }
 
-.column > *{
+.letter-tile-0{
+    visibility: hidden;
+}
+
+.number-tile{
     padding:.5rem 1rem;
     border:1px solid black;
+}
+
+.column>*:first-child{
+    border-style: none;
+    padding:.5rem
 }
 
 .column-0 > *{

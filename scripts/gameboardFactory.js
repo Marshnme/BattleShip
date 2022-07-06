@@ -144,14 +144,18 @@ const gameBoardFactory = (ai = false) => {
         for (let i = 0; i < letterColumns.length + 1; i++) {
             const column = document.createElement('div');
             column.classList.add('column', `column-${i}`);
-            column.textContent = `${
-                letterColumns[i - 1] ? letterColumns[i - 1] : 'nothin'
+            const letterTile = document.createElement('div');
+            letterTile.classList.add(`letter-tile-${i}`);
+            letterTile.textContent = `${
+                letterColumns[i - 1] ? letterColumns[i - 1] : 'n'
             }`;
+            column.prepend(letterTile);
             gameboardParent.appendChild(boardHolder);
             for (let j = 0; j < numberRows.length; j++) {
                 const numberTiles = document.createElement('div');
                 numberTiles.textContent = `${numberRows[j]}`;
                 numberTiles.classList.add(
+                    'number-tile',
                     `${letterColumns[i - 1]}-${numberRows[j]}`
                 );
                 column.appendChild(numberTiles);
