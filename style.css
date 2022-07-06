@@ -20,9 +20,22 @@ body,.gameboards{
 }
 
 .board-holder{
-    display: flex;
+    /* display: flex; */
+}
+
+.board{
+    display:flex;
+}
+
+.board-title{
+    padding:2rem;
+    text-align: center;
 }
 
 .letter-tiles{
     text-align: center;
+}
+
+.letter-tiles > *{
+    padding:.5rem 1rem;
 }

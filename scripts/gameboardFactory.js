@@ -135,9 +135,12 @@ const gameBoardFactory = (ai = false) => {
     function renderBoard() {
         const gameboardParent = document.querySelector('.gameboards');
         const boardTitle = document.createElement('h2');
+        boardTitle.classList.add('board-title');
         boardTitle.textContent = `${ai ? 'AI Board' : 'Player Board'}`;
         const boardHolder = document.createElement('div');
         boardHolder.classList.add('board-holder');
+        const board = document.createElement('div');
+        board.classList.add('board');
         for (let i = 0; i < letterColumns.length; i++) {
             const letterTiles = document.createElement('div');
             letterTiles.classList.add('letter-tiles');
@@ -150,7 +153,8 @@ const gameBoardFactory = (ai = false) => {
                     `${letterColumns[i]}-${numberRows[j]}`
                 );
                 letterTiles.appendChild(numberTiles);
-                boardHolder.appendChild(letterTiles);
+                board.appendChild(letterTiles);
+                boardHolder.appendChild(board);
             }
             boardHolder.prepend(boardTitle);
             gameboardParent.appendChild(boardHolder);
