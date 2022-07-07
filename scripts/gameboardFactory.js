@@ -153,7 +153,9 @@ const gameBoardFactory = (ai = false) => {
             gameboardParent.appendChild(boardHolder);
             for (let j = 0; j < numberRows.length; j++) {
                 const numberTiles = document.createElement('div');
-                numberTiles.textContent = `${numberRows[j]}`;
+                numberTiles.textContent = `${
+                    letterColumns[i - 1] === undefined ? numberRows[j] : ''
+                }`;
                 numberTiles.classList.add(
                     'number-tile',
                     `${letterColumns[i - 1]}-${numberRows[j]}`
