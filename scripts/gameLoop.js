@@ -1,6 +1,7 @@
 import { gameBoardFactory } from './gameboardFactory.js';
 import shipFactory from './shipFactory.js';
 import player from './player-ai.js';
+import domModule from './domModule.js';
 
 const gameLoop = () => {
     const playerBoard = gameBoardFactory();
@@ -31,6 +32,7 @@ const gameLoop = () => {
 
     playerBoard.renderBoard();
     aiBoard.renderBoard();
+    domModule(playerBoard, humanPlayer, aiBoard, aiPlayer);
 };
 
 gameLoop();

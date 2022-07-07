@@ -19,10 +19,10 @@ const gameBoardFactory = (ai = false) => {
     }
 
     function missedShot(cord1) {
-        if (this.missedShots.includes(cord1)) {
+        if (missedShots.includes(cord1)) {
             return;
         }
-        this.missedShots.push(cord1);
+        missedShots.push(cord1);
     }
 
     function findAllShipCord(allShips) {

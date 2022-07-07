@@ -1,6 +1,7 @@
 import { gameBoardFactory } from '../gameboardFactory.js';
 
 const testBoard = gameBoardFactory();
+
 test('places ships at correct coordinates', () => {
     testBoard.placeShip(4, 'A-1', 'D-1');
     testBoard.placeShip(2, 'A-6', 'A-7');
