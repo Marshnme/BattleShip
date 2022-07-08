@@ -38,7 +38,9 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                         )
                     ) {
                         console.log(tile.children[i]);
-                        tile.children[i].classList.add('clicked-tile');
+                        tile.children[i].classList.add('hit-tile');
+                    } else {
+                        tile.children[i].classList.add('missed-tile');
                     }
                 });
             }

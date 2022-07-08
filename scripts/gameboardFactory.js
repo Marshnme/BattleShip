@@ -19,10 +19,10 @@ const gameBoardFactory = (ai = false) => {
     }
 
     function missedShot(cord1) {
-        if (missedShots.includes(cord1)) {
-            return;
+        if (!missedShots.includes(cord1)) {
+            missedShots.push(cord1);
+            return console.log('missed shot');
         }
-        missedShots.push(cord1);
     }
 
     function findAllShipCord(allShips) {
@@ -120,13 +120,14 @@ const gameBoardFactory = (ai = false) => {
                     if (!allShipCords.includes(cord1)) {
                         missedShot(cord1);
                     }
+                    this.allShipsDestroyed();
                 }
             }
         });
     }
 
     function allShipsDestroyed() {
-        for (let i = 0; i < this.ships.length; i++) {
+        for (let i = 0; i <= this.ships.length; i++) {
             if (this.ships[i].ship.sunk === false) {
                 this.allShipsSank = false;
                 return false;

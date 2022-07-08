@@ -58,6 +58,10 @@ body,.gameboards{
     padding: .6rem;
 }
 
-.clicked-tile{
-    background-color:gray;
+.hit-tile{
+    background-color:red;
+}
+
+.missed-tile{
+    background-color: gray;
 }
