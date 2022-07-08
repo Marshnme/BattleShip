@@ -17,20 +17,18 @@ const player = (playerName, boardToAttack, ai = false) => {
         const randomLetter =
             columns[Math.floor(Math.random() * columns.length)];
 
-        console.log(randomLetter);
-
         const randomNumber = rows[Math.floor(Math.random() * rows.length)];
 
-        console.log(randomNumber);
         const cord = `${randomLetter}-${randomNumber}`;
         console.log(cord);
 
         if (this.allAttacks.includes(cord)) {
             console.log('attack already made');
-            return this.aiAttack();
+            this.aiAttack();
         }
         boardToAttack.receiveAttack(cord);
         this.allAttacks.push(cord);
+        return cord;
     }
     return { playerName, attack, aiAttack, allAttacks };
 };

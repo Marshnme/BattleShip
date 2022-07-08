@@ -9,19 +9,6 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
     const playerBoardColumns = [...boardsArray[0].children[1].children];
     const aiBoardColumns = [...boardsArray[1].children[1].children];
 
-    // playerBoardColumns.map((tile) => {
-    //     // console.log(tile);
-    //     for (let i = 0; i < tile.children.length; i++) {
-    //         console.log(tile.children[i]);
-    //         if (tile !== tile.children[0]) {
-    //             tile.children[i].addEventListener('click', (e) => {
-    //                 humanPlayer.attack(tile.children[i].classList[1]);
-    //                 console.log(aiBoard);
-    //             });
-    //         }
-    //     }
-    // });
-
     aiBoardColumns.map((tile) => {
         // console.log(tile);
         for (let i = 0; i < tile.children.length; i++) {
@@ -33,14 +20,14 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     const currentAttack = humanPlayer.attack(
                         tile.children[i].classList[1]
                     );
-                    console.log(aiBoard);
-                    console.log(humanPlayer);
+                    // console.log(aiBoard);
+                    // console.log(humanPlayer);
                     if (
                         aiBoard.allShipCords.includes(
                             tile.children[i].classList[1]
                         )
                     ) {
-                        console.log(tile.children[i]);
+                        // console.log(tile.children[i]);
                         tile.children[i].classList.add('hit-tile');
                     } else {
                         tile.children[i].classList.add('missed-tile');
@@ -49,13 +36,42 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     if (currentAttack === 'attack already made') {
                         return console.log('stop ai attack');
                     }
-                    console.log(aiPlayer);
-                    aiPlayer.aiAttack();
+                    const currentAiAttack = aiPlayer.aiAttack();
+                    // console.log(humanBoard);
                     console.log(humanBoard);
+                    console.log(aiBoard);
+                    humanBoardRefresh(currentAiAttack);
                 });
             }
         }
     });
+
+    function humanBoardRefresh(currentAiAttack) {
+        playerBoardColumns.map((tile) => {
+            // console.log(tile);
+
+            for (let i = 0; i < tile.children.length; i++) {
+                // console.log(tile.children[i]);
+                if (
+                    tile.children[i].classList[1] !== `undefined-${i}` &&
+                    tile.children[i].classList[1] !== undefined
+                ) {
+                    // console.log(tile.children[i].classList[1]);
+                    if (
+                        humanBoard.allShipCords.includes(currentAiAttack) &&
+                        currentAiAttack === tile.children[i].classList[1]
+                    ) {
+                        tile.children[i].classList.add('hit-tile');
+                    } else if (
+                        !humanBoard.allShipCords.includes(currentAiAttack) &&
+                        currentAiAttack === tile.children[i].classList[1]
+                    ) {
+                        tile.children[i].classList.add('missed-tile');
+                    }
+                }
+            }
+        });
+    }
 };
 
 export default domModule;
