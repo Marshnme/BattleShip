@@ -39,7 +39,7 @@ const gameBoardFactory = (ai = false) => {
                     i <= numberRows.indexOf(shipCord2SecondValue);
                     i++
                 ) {
-                    console.log(`${shipCord1FirstValue}-${numberRows[i]}`);
+                    // console.log(`${shipCord1FirstValue}-${numberRows[i]}`);
                     if (
                         allShipCords.includes(
                             `${shipCord1FirstValue}-${numberRows[i]}`

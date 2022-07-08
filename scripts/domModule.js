@@ -30,6 +30,14 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                 tile.children[i].addEventListener('click', (e) => {
                     humanPlayer.attack(tile.children[i].classList[1]);
                     console.log(aiBoard);
+                    if (
+                        aiBoard.allShipCords.includes(
+                            tile.children[i].classList[1]
+                        )
+                    ) {
+                        console.log(tile.children[i]);
+                        tile.children[i].classList.add('clicked-tile');
+                    }
                 });
             }
         }

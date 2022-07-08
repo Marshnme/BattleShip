@@ -57,3 +57,7 @@ body,.gameboards{
 .column-0> .number-tile {
     padding: .6rem;
 }
+
+.clicked-tile{
+    background-color:gray;
+}
