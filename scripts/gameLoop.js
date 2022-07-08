@@ -17,7 +17,7 @@ const gameLoop = () => {
     aiBoard.placeShip(1, 'A-1', 'A-1');
     aiBoard.placeShip(3, 'H-8', 'J-8');
     aiBoard.placeShip(2, 'C-9', 'C-10');
-    aiBoard.placeShip(2, 'B-7', 'B-10');
+    aiBoard.placeShip(4, 'B-7', 'B-10');
 
     const humanPlayer = player('joshua', aiBoard);
     const aiPlayer = player('joshua', playerBoard, true);

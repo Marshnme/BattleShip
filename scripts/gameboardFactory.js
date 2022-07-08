@@ -35,17 +35,22 @@ const gameBoardFactory = (ai = false) => {
 
             if (shipCord1FirstValue === shipCord2FirstValue) {
                 for (
-                    let i = shipCord1SecondValue;
-                    i <= shipCord2SecondValue;
+                    let i = numberRows.indexOf(shipCord1SecondValue);
+                    i <= numberRows.indexOf(shipCord2SecondValue);
                     i++
                 ) {
+                    console.log(`${shipCord1FirstValue}-${numberRows[i]}`);
                     if (
-                        allShipCords.includes(`${shipCord1FirstValue}-${[i]}`)
+                        allShipCords.includes(
+                            `${shipCord1FirstValue}-${numberRows[i]}`
+                        )
                     ) {
                         return;
                     }
 
-                    allShipCords.push(`${shipCord1FirstValue}-${[i]}`);
+                    allShipCords.push(
+                        `${shipCord1FirstValue}-${numberRows[i]}`
+                    );
                 }
             }
             // row ship cord detection
@@ -84,11 +89,12 @@ const gameBoardFactory = (ai = false) => {
 
             if (shipCord1FirstValue === shipCord2FirstValue) {
                 for (
-                    let i = shipCord1SecondValue;
-                    i <= shipCord2SecondValue;
+                    let i = numberRows.indexOf(shipCord1SecondValue);
+                    i <= numberRows.indexOf(shipCord2SecondValue);
                     i++
                 ) {
-                    if (cord1 === `${shipCord1FirstValue}-${[i]}`) {
+                    // console.log(`${shipCord1FirstValue}-${numberRows[i]}`);
+                    if (cord1 === `${shipCord1FirstValue}-${numberRows[i]}`) {
                         ship.ship.hit(cord1);
                         ship.ship.destroy();
                     }
@@ -104,6 +110,7 @@ const gameBoardFactory = (ai = false) => {
                     i <= letterColumns.indexOf(shipCord2FirstValue);
                     i++
                 ) {
+                    // console.log(`${letterColumns[i]}-${shipCord1SecondValue}`);
                     if (
                         cord1 === `${letterColumns[i]}-${shipCord1SecondValue}`
                     ) {
@@ -175,6 +182,7 @@ const gameBoardFactory = (ai = false) => {
         missedShots,
         allShipsDestroyed,
         allShipsSank,
+        allShipCords,
         renderBoard,
     };
 };

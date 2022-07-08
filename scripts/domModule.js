@@ -7,16 +7,29 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
     const boardsArray = [...boards];
 
     const playerBoardColumns = [...boardsArray[0].children[1].children];
-    // const aiBoardTiles = [...boardsArray[1].children[1].children];
-    // console.log(playerBoardColumns);
+    const aiBoardColumns = [...boardsArray[1].children[1].children];
 
-    playerBoardColumns.map((tile) => {
+    // playerBoardColumns.map((tile) => {
+    //     // console.log(tile);
+    //     for (let i = 0; i < tile.children.length; i++) {
+    //         console.log(tile.children[i]);
+    //         if (tile !== tile.children[0]) {
+    //             tile.children[i].addEventListener('click', (e) => {
+    //                 humanPlayer.attack(tile.children[i].classList[1]);
+    //                 console.log(aiBoard);
+    //             });
+    //         }
+    //     }
+    // });
+
+    aiBoardColumns.map((tile) => {
         // console.log(tile);
         for (let i = 0; i < tile.children.length; i++) {
             console.log(tile.children[i]);
             if (tile !== tile.children[0]) {
                 tile.children[i].addEventListener('click', (e) => {
                     humanPlayer.attack(tile.children[i].classList[1]);
+                    console.log(aiBoard);
                 });
             }
         }

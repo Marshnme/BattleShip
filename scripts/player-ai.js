@@ -4,7 +4,7 @@ const player = (playerName, boardToAttack, ai = false) => {
     const allAttacks = [];
 
     function attack(cord) {
-        console.log(this);
+        // console.log(this);
         if (this.allAttacks.includes(cord)) {
             return console.log('attack already made');
         }
