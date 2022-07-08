@@ -6,7 +6,8 @@ const player = (playerName, boardToAttack, ai = false) => {
     function attack(cord) {
         // console.log(this);
         if (this.allAttacks.includes(cord)) {
-            return console.log('attack already made');
+            console.log('attack already made');
+            return 'attack already made';
         }
         boardToAttack.receiveAttack(cord);
         this.allAttacks.push(cord);
@@ -26,7 +27,7 @@ const player = (playerName, boardToAttack, ai = false) => {
 
         if (this.allAttacks.includes(cord)) {
             console.log('attack already made');
-            aiAttack();
+            return this.aiAttack();
         }
         boardToAttack.receiveAttack(cord);
         this.allAttacks.push(cord);

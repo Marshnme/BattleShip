@@ -20,7 +20,7 @@ const gameLoop = () => {
     aiBoard.placeShip(4, 'B-7', 'B-10');
 
     const humanPlayer = player('joshua', aiBoard);
-    const aiPlayer = player('joshua', playerBoard, true);
+    const aiPlayer = player('ai', playerBoard, true);
 
     // while (
     //     playerBoard.allShipsDestroyed() === false &&

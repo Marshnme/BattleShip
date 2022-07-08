@@ -30,8 +30,11 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                 tile.children[i].classList[1] !== undefined
             ) {
                 tile.children[i].addEventListener('click', (e) => {
-                    humanPlayer.attack(tile.children[i].classList[1]);
+                    const currentAttack = humanPlayer.attack(
+                        tile.children[i].classList[1]
+                    );
                     console.log(aiBoard);
+                    console.log(humanPlayer);
                     if (
                         aiBoard.allShipCords.includes(
                             tile.children[i].classList[1]
@@ -42,6 +45,13 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     } else {
                         tile.children[i].classList.add('missed-tile');
                     }
+
+                    if (currentAttack === 'attack already made') {
+                        return console.log('stop ai attack');
+                    }
+                    console.log(aiPlayer);
+                    aiPlayer.aiAttack();
+                    console.log(humanBoard);
                 });
             }
         }
