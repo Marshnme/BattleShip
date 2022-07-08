@@ -25,8 +25,10 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
     aiBoardColumns.map((tile) => {
         // console.log(tile);
         for (let i = 0; i < tile.children.length; i++) {
-            console.log(tile.children[i]);
-            if (tile !== tile.children[0]) {
+            if (
+                tile.children[i].classList[1] !== `undefined-${i}` &&
+                tile.children[i].classList[1] !== undefined
+            ) {
                 tile.children[i].addEventListener('click', (e) => {
                     humanPlayer.attack(tile.children[i].classList[1]);
                     console.log(aiBoard);
