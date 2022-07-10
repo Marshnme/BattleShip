@@ -21,10 +21,10 @@ const player = (playerName, boardToAttack, ai = false) => {
 
         const cord = `${randomLetter}-${randomNumber}`;
 
-        console.log('ai attack', cord);
+        // console.log('ai attack', cord);
 
         if (this.allAttacks.includes(cord)) {
-            console.log('attack already made');
+            console.log('ai attack already made');
             return this.aiAttack();
         }
         boardToAttack.receiveAttack(cord);

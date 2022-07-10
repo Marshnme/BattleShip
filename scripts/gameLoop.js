@@ -19,18 +19,10 @@ const gameLoop = () => {
     aiBoard.placeShip(2, 'C-9', 'C-10');
     aiBoard.placeShip(4, 'B-7', 'B-10');
 
-    const humanPlayer = player('joshua', aiBoard);
+    const humanPlayer = player('Joshua', aiBoard);
     const aiPlayer = player('ai', playerBoard, true);
 
-    // while (
-    //     playerBoard.allShipsDestroyed() === false &&
-    //     aiBoard.allShipsDestroyed() === false
-    // ) {
-    //     console.log('renderr?');
-    //     playerBoard.renderBoard();
-    // }
-
-    playerBoard.renderBoard();
+    playerBoard.renderBoard(humanPlayer.playerName);
     aiBoard.renderBoard();
     domModule(playerBoard, humanPlayer, aiBoard, aiPlayer);
 };

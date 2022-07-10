@@ -39,7 +39,6 @@ const gameBoardFactory = (ai = false) => {
                     i <= numberRows.indexOf(shipCord2SecondValue);
                     i++
                 ) {
-                    // console.log(`${shipCord1FirstValue}-${numberRows[i]}`);
                     if (
                         allShipCords.includes(
                             `${shipCord1FirstValue}-${numberRows[i]}`
@@ -93,15 +92,16 @@ const gameBoardFactory = (ai = false) => {
                     i <= numberRows.indexOf(shipCord2SecondValue);
                     i++
                 ) {
-                    // console.log(`${shipCord1FirstValue}-${numberRows[i]}`);
                     if (cord1 === `${shipCord1FirstValue}-${numberRows[i]}`) {
                         ship.ship.hit(cord1);
                         ship.ship.destroy();
+                        this.allShipsDestroyed();
                     }
                     if (!allShipCords.includes(cord1)) {
                         missedShot(cord1);
                     }
                 }
+                return;
             }
             // row ship hit detection
             if (shipCord1SecondValue === shipCord2SecondValue) {
@@ -110,41 +110,42 @@ const gameBoardFactory = (ai = false) => {
                     i <= letterColumns.indexOf(shipCord2FirstValue);
                     i++
                 ) {
-                    // console.log(`${letterColumns[i]}-${shipCord1SecondValue}`);
                     if (
                         cord1 === `${letterColumns[i]}-${shipCord1SecondValue}`
                     ) {
                         ship.ship.hit(cord1);
                         ship.ship.destroy();
+                        this.allShipsDestroyed();
                     }
                     if (!allShipCords.includes(cord1)) {
                         missedShot(cord1);
                     }
-                    this.allShipsDestroyed();
                 }
             }
         });
     }
 
     function allShipsDestroyed() {
-        for (let i = 0; i <= this.ships.length; i++) {
+        for (let i = 0; i <= this.ships.length - 1; i++) {
+            console.log('index', i);
+            console.log(this.ships);
             if (this.ships[i].ship.sunk === false) {
                 this.allShipsSank = false;
                 return false;
             }
             if (this.ships[i].ship.sunk === true) {
                 this.allShipsSank = true;
-                return true;
             }
         }
-        console.log(this.allShipsSank);
     }
 
-    function renderBoard() {
+    function renderBoard(humanName) {
         const gameboardParent = document.querySelector('.gameboards');
         const boardTitle = document.createElement('h2');
         boardTitle.classList.add('board-title');
-        boardTitle.textContent = `${ai ? 'AI Board' : 'Player Board'}`;
+        boardTitle.textContent = `${
+            ai ? "AI's Board" : `${humanName}'s Board`
+        }`;
         const boardHolder = document.createElement('div');
         boardHolder.classList.add('board-holder');
         const board = document.createElement('div');

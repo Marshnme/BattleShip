@@ -3,14 +3,14 @@ const shipFactory = (length) => {
     const sunk = false;
 
     function hit(num) {
-        if (hitLocations.includes(num)) {
+        if (this.hitLocations.includes(num)) {
             return console.log('already hit');
         }
-        if (hitLocations.length < length) {
-            this.hitLocations.push(num);
-        } else {
-            return console.log('You missed');
+        if (this.hitLocations.length < this.length) {
+            console.log('added to hits');
+            return this.hitLocations.push(num);
         }
+        return console.log('You missed');
     }
 
     function destroy() {

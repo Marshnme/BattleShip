@@ -10,7 +10,6 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
     const aiBoardColumns = [...boardsArray[1].children[1].children];
 
     aiBoardColumns.map((tile) => {
-        // console.log(tile);
         for (let i = 0; i < tile.children.length; i++) {
             if (
                 tile.children[i].classList[1] !== `undefined-${i}` &&
@@ -20,15 +19,14 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     const currentAttack = humanPlayer.attack(
                         tile.children[i].classList[1]
                     );
-                    // console.log(aiBoard);
-                    // console.log(humanPlayer);
+                    console.log(aiBoard);
                     if (
                         aiBoard.allShipCords.includes(
                             tile.children[i].classList[1]
                         )
                     ) {
-                        // console.log(tile.children[i]);
                         tile.children[i].classList.add('hit-tile');
+                        checkWin();
                     } else {
                         tile.children[i].classList.add('missed-tile');
                     }
@@ -37,27 +35,22 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                         return console.log('stop ai attack');
                     }
                     const currentAiAttack = aiPlayer.aiAttack();
-                    // console.log(humanBoard);
-                    // console.log(humanBoard);
-                    // console.log(aiBoard);
-                    console.log(currentAiAttack);
+                    // console.log(currentAiAttack);
                     humanBoardRefresh(currentAiAttack);
+                    checkWin();
                 });
             }
         }
     });
 
     function humanBoardRefresh(currentAiAttack) {
+        console.log(humanBoard);
         playerBoardColumns.map((tile) => {
-            // console.log(tile);
-
             for (let i = 0; i < tile.children.length; i++) {
-                // console.log(tile.children[i]);
                 if (
                     tile.children[i].classList[1] !== `undefined-${i}` &&
                     tile.children[i].classList[1] !== undefined
                 ) {
-                    // console.log(tile.children[i].classList[1]);
                     if (
                         humanBoard.allShipCords.includes(currentAiAttack) &&
                         currentAiAttack === tile.children[i].classList[1]
@@ -72,6 +65,15 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                 }
             }
         });
+    }
+
+    function checkWin() {
+        if (humanBoard.allShipsSank === true) {
+            return console.log('ai wins');
+        }
+        if (aiBoard.allShipsSank === true) {
+            return console.log('player win');
+        }
     }
 };
 
