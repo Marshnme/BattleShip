@@ -1,6 +1,4 @@
-import { gameBoardFactory } from './gameboardFactory.js';
-import shipFactory from './shipFactory.js';
-import player from './player-ai.js';
+import endGame from './endGame.js';
 
 const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
     const boards = document.getElementsByClassName('gameboards')[0].childNodes;
@@ -27,6 +25,9 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     ) {
                         tile.children[i].classList.add('hit-tile');
                         checkWin();
+                        if (checkWin() === 'player wins') {
+                            return endGame(humanPlayer.playerName);
+                        }
                     } else {
                         tile.children[i].classList.add('missed-tile');
                     }
@@ -38,6 +39,9 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     // console.log(currentAiAttack);
                     humanBoardRefresh(currentAiAttack);
                     checkWin();
+                    if (checkWin() === 'ai wins') {
+                        return endGame('AI');
+                    }
                 });
             }
         }
@@ -69,10 +73,12 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
 
     function checkWin() {
         if (humanBoard.allShipsSank === true) {
-            return console.log('ai wins');
+            console.log('ai wins');
+            return 'ai wins';
         }
         if (aiBoard.allShipsSank === true) {
-            return console.log('player win');
+            console.log('player win');
+            return 'player wins';
         }
     }
 };
