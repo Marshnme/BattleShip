@@ -38,8 +38,9 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     }
                     const currentAiAttack = aiPlayer.aiAttack();
                     // console.log(humanBoard);
-                    console.log(humanBoard);
-                    console.log(aiBoard);
+                    // console.log(humanBoard);
+                    // console.log(aiBoard);
+                    console.log(currentAiAttack);
                     humanBoardRefresh(currentAiAttack);
                 });
             }
