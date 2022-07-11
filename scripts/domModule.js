@@ -1,11 +1,35 @@
 import endGame from './endGame.js';
+import player from './player-ai.js';
 
-const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
+const domModule = (
+    humanBoard,
+    humanPlayer,
+    aiBoard,
+    aiPlayer,
+    playerShips,
+    aiShips
+) => {
     const boards = document.getElementsByClassName('gameboards')[0].childNodes;
     const boardsArray = [...boards];
 
     const playerBoardColumns = [...boardsArray[0].children[1].children];
     const aiBoardColumns = [...boardsArray[1].children[1].children];
+
+    const playerShipHolder = document.createElement('div');
+
+    for (let i = 0; i < playerShips.length; i++) {
+        const ship = document.createElement('div');
+        ship.classList.add('ship');
+        for (let j = 0; j < playerShips[i].length; j++) {
+            const shipTile = document.createElement('div');
+            shipTile.classList.add('border');
+            ship.appendChild(shipTile);
+        }
+        playerShipHolder.appendChild(ship);
+    }
+
+    playerShipHolder.classList.add('ship-holder');
+    boardsArray[0].appendChild(playerShipHolder);
 
     aiBoardColumns.map((tile) => {
         for (let i = 0; i < tile.children.length; i++) {
@@ -40,7 +64,7 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer) => {
                     humanBoardRefresh(currentAiAttack);
                     checkWin();
                     if (checkWin() === 'ai wins') {
-                        return endGame('AI');
+                        return endGame('AI Wins!');
                     }
                 });
             }
