@@ -15,16 +15,34 @@ const domModule = (
     const playerBoardColumns = [...boardsArray[0].children[1].children];
     const aiBoardColumns = [...boardsArray[1].children[1].children];
 
-    const playerShipHolder = document.createElement('div');
+    const rotateButton = document.createElement('button');
+    rotateButton.textContent = 'Rotate Ships';
+    rotateButton.classList.add('rotate-button');
 
+    const playerShipHolder = document.createElement('div');
+    playerShipHolder.appendChild(rotateButton);
     for (let i = 0; i < playerShips.length; i++) {
         const ship = document.createElement('div');
-        ship.classList.add('ship');
+        ship.setAttribute('draggable', true);
+        ship.classList.add('ship', 'shark-img');
+        rotateButton.addEventListener('click', () => {
+            ship.classList.toggle('shark-img');
+            ship.classList.toggle('ship-rotate');
+            ship.classList.toggle('shark-rotate');
+        });
         for (let j = 0; j < playerShips[i].length; j++) {
             const shipTile = document.createElement('div');
+            // if (j === 0) {
+            //     shipTile.classList.add('border-start');
+            //     ship.appendChild(shipTile);
+            // } else if (j === playerShips[i].length - 1) {
+            //     shipTile.classList.add('border-end');
+            //     ship.appendChild(shipTile);
+            // } else {
             shipTile.classList.add('border');
             ship.appendChild(shipTile);
         }
+        // }
         playerShipHolder.appendChild(ship);
     }
 
@@ -105,6 +123,8 @@ const domModule = (
             return 'player wins';
         }
     }
+
+    // DRAG AND DROP
 };
 
 export default domModule;
