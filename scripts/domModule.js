@@ -23,8 +23,10 @@ const domModule = (
     playerShipHolder.appendChild(rotateButton);
     for (let i = 0; i < playerShips.length; i++) {
         const ship = document.createElement('div');
+        ship.addEventListener('dragstart', dragStart);
         ship.setAttribute('draggable', true);
         ship.classList.add('ship', 'shark-img');
+        ship.setAttribute('id', `ship-${i}`);
         rotateButton.addEventListener('click', () => {
             ship.classList.toggle('shark-img');
             ship.classList.toggle('ship-rotate');
@@ -125,6 +127,76 @@ const domModule = (
     }
 
     // DRAG AND DROP
+    // console.log(playerBoardColumns);
+
+    function dragStart(e) {
+        e.dataTransfer.setData('text/plain', e.target.id);
+        setTimeout(() => {
+            console.log('id', e.target.id);
+            e.target.classList.add('hide');
+        }, 0);
+    }
+
+    for (let i = 0; i < playerBoardColumns.length; i++) {
+        if (i === 0) {
+        } else {
+            for (let j = 0; j < playerBoardColumns[i].children.length; j++) {
+                playerBoardColumns[i].children[j].addEventListener(
+                    'dragenter',
+                    dragEnter
+                );
+                playerBoardColumns[i].children[j].addEventListener(
+                    'dragover',
+                    dragOver
+                );
+                playerBoardColumns[i].children[j].addEventListener(
+                    'dragleave',
+                    dragLeave
+                );
+                playerBoardColumns[i].children[j].addEventListener(
+                    'drop',
+                    dropEle
+                );
+            }
+        }
+    }
+
+    function dragEnter(e) {
+        e.preventDefault();
+        e.target.classList.add('drag-over');
+    }
+
+    function dragOver(e) {
+        e.preventDefault();
+        e.target.classList.add('drag-over');
+    }
+
+    function dragLeave(e) {
+        e.preventDefault();
+        e.target.classList.remove('drag-over');
+    }
+
+    function dropEle(e) {
+        e.preventDefault();
+        if (e.target.classList[0].includes('number-tile')) {
+            const id = e.dataTransfer.getData('text/plain');
+            let draggable = document.getElementById(id);
+            draggable = [...draggable.children];
+
+            function replace(currentTarget, i) {
+                currentTarget.appendChild(draggable[i]);
+                i++;
+                replace(currentTarget.nextSibling, i++);
+            }
+
+            // e.target.replaceChildren(draggable.children[0]);
+            // e.target.nextSibling.replaceChildren(draggable.children[1]);
+            // e.target.nextSibling.nextSibling.replaceChildren(
+            //     draggable.children[0]
+            // );
+            replace(e.target, 0);
+        }
+    }
 };
 
 export default domModule;
