@@ -195,7 +195,7 @@ const domModule = (
                     const secondCordNum = e.target.classList[1].split('-')[1];
 
                     const fullSecondCord = `${secondCordLetter}-${
-                        parseInt(secondCordNum) + 3
+                        parseInt(secondCordNum) + playerShips[i].length - 1
                     }`;
                     humanBoard.placeShip(
                         playerShips[i].length,
