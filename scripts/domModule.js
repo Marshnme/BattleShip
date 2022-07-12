@@ -180,21 +180,33 @@ const domModule = (
         e.preventDefault();
         if (e.target.classList[0].includes('number-tile')) {
             const id = e.dataTransfer.getData('text/plain');
-            let draggable = document.getElementById(id);
-            draggable = [...draggable.children];
+            const draggable = document.getElementById(id);
+            // draggable = [...draggable.children];
+            console.log(playerShips);
+            console.log(draggable);
+            console.log(e.target);
+            for (let i = 0; i < playerShips.length; i++) {
+                // console.log(playerShips.indexOf(playerShips[i]));
+                // console.log(id.split('-')[1]);
+                if (id.split('-')[1] == playerShips.indexOf(playerShips[i])) {
+                    console.log(e.target.classList[1]);
+                    const secondCordLetter =
+                        e.target.classList[1].split('-')[0];
+                    const secondCordNum = e.target.classList[1].split('-')[1];
 
-            function replace(currentTarget, i) {
-                currentTarget.appendChild(draggable[i]);
-                i++;
-                replace(currentTarget.nextSibling, i++);
+                    const fullSecondCord = `${secondCordLetter}-${
+                        parseInt(secondCordNum) + 3
+                    }`;
+                    humanBoard.placeShip(
+                        playerShips[i].length,
+                        e.target.classList[1],
+                        fullSecondCord
+                    );
+                    console.log(humanBoard);
+                }
             }
 
-            // e.target.replaceChildren(draggable.children[0]);
-            // e.target.nextSibling.replaceChildren(draggable.children[1]);
-            // e.target.nextSibling.nextSibling.replaceChildren(
-            //     draggable.children[0]
-            // );
-            replace(e.target, 0);
+            // humanBoard.placeShip();
         }
     }
 };
