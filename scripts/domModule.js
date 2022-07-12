@@ -9,6 +9,7 @@ const domModule = (
     playerShips,
     aiShips
 ) => {
+    const letterColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     let shipPlacement = 'column';
     const boards = document.getElementsByClassName('gameboards')[0].childNodes;
     const boardsArray = [...boards];
@@ -38,8 +39,9 @@ const domModule = (
         ship.classList.add('ship', 'shark-img');
         ship.setAttribute('id', `ship-${i}`);
         rotateButton.addEventListener('click', () => {
-            ship.classList.toggle('shark-img');
             ship.classList.toggle('ship-rotate');
+            ship.classList.toggle('shark-img');
+
             ship.classList.toggle('shark-rotate');
         });
         for (let j = 0; j < playerShips[i].length; j++) {
@@ -143,7 +145,7 @@ const domModule = (
         e.dataTransfer.setData('text/plain', e.target.id);
         setTimeout(() => {
             console.log('id', e.target.id);
-            e.target.classList.add('hide');
+            e.target.classList.add('hide-ship');
         }, 0);
     }
 
@@ -222,6 +224,34 @@ const domModule = (
                 // do not place ship. Add 'taken' class to grid to stop placement if already taken
 
                 // if ship spans across rows use same logic but use index of the letters
+
+                for (let i = 0; i < playerShips.length; i++) {
+                    if (
+                        id.split('-')[1] == playerShips.indexOf(playerShips[i])
+                    ) {
+                        const secondCordLetter =
+                            letterColumns.indexOf(
+                                e.target.classList[1].split('-')[0]
+                            ) +
+                            playerShips[i].length -
+                            1;
+                        const secondCordNum =
+                            e.target.classList[1].split('-')[1];
+                        console.log('LETTER', secondCordLetter);
+                        const fullSecondCord = `${letterColumns[secondCordLetter]}-${secondCordNum}`;
+                        // if cord 1 num is less than 1 or cord 2 num is greater than 10
+                        // do not place ship. Add 'taken' class to grid to stop placement if already taken
+                        humanBoard.placeShip(
+                            playerShips[i].length,
+                            e.target.classList[1],
+                            fullSecondCord
+                        );
+                        draggable.classList.remove('ship-rotate');
+                        draggable.classList.add('hide-ship');
+                        console.log(shipPlacement);
+                        console.log(humanBoard);
+                    }
+                }
                 console.log('row logic');
             }
         }

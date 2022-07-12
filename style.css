@@ -95,7 +95,7 @@ body,.gameboards{
     height:100%;
 }
 
-.hide-ship{
+.ship-holder .hide-ship{
     display: none;
 }
 
