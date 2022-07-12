@@ -9,6 +9,7 @@ const domModule = (
     playerShips,
     aiShips
 ) => {
+    let shipPlacement = 'column';
     const boards = document.getElementsByClassName('gameboards')[0].childNodes;
     const boardsArray = [...boards];
 
@@ -18,6 +19,15 @@ const domModule = (
     const rotateButton = document.createElement('button');
     rotateButton.textContent = 'Rotate Ships';
     rotateButton.classList.add('rotate-button');
+
+    rotateButton.addEventListener('click', () => {
+        if (shipPlacement === 'column') {
+            shipPlacement = 'row';
+        } else if (shipPlacement === 'row') {
+            shipPlacement = 'column';
+        }
+        console.log(shipPlacement);
+    });
 
     const playerShipHolder = document.createElement('div');
     playerShipHolder.appendChild(rotateButton);
@@ -181,32 +191,39 @@ const domModule = (
         if (e.target.classList[0].includes('number-tile')) {
             const id = e.dataTransfer.getData('text/plain');
             const draggable = document.getElementById(id);
-            // draggable = [...draggable.children];
-            console.log(playerShips);
-            console.log(draggable);
-            console.log(e.target);
-            for (let i = 0; i < playerShips.length; i++) {
-                // console.log(playerShips.indexOf(playerShips[i]));
-                // console.log(id.split('-')[1]);
-                if (id.split('-')[1] == playerShips.indexOf(playerShips[i])) {
-                    console.log(e.target.classList[1]);
-                    const secondCordLetter =
-                        e.target.classList[1].split('-')[0];
-                    const secondCordNum = e.target.classList[1].split('-')[1];
 
-                    const fullSecondCord = `${secondCordLetter}-${
-                        parseInt(secondCordNum) + playerShips[i].length - 1
-                    }`;
-                    humanBoard.placeShip(
-                        playerShips[i].length,
-                        e.target.classList[1],
-                        fullSecondCord
-                    );
-                    console.log(humanBoard);
+            if (shipPlacement === 'column') {
+                for (let i = 0; i < playerShips.length; i++) {
+                    if (
+                        id.split('-')[1] == playerShips.indexOf(playerShips[i])
+                    ) {
+                        const secondCordLetter =
+                            e.target.classList[1].split('-')[0];
+                        const secondCordNum =
+                            e.target.classList[1].split('-')[1];
+
+                        const fullSecondCord = `${secondCordLetter}-${
+                            parseInt(secondCordNum) + playerShips[i].length - 1
+                        }`;
+                        // if cord 1 num is less than 1 or cord 2 num is greater than 10
+                        // do not place ship. Add 'taken' class to grid to stop placement if already taken
+                        humanBoard.placeShip(
+                            playerShips[i].length,
+                            e.target.classList[1],
+                            fullSecondCord
+                        );
+                        draggable.classList.add('hide-ship');
+                        console.log(shipPlacement);
+                        console.log(humanBoard);
+                    }
                 }
-            }
+            } else if (shipPlacement === 'row') {
+                // if cord 1 num is less than 1 or cord 2 num is greater than 10
+                // do not place ship. Add 'taken' class to grid to stop placement if already taken
 
-            // humanBoard.placeShip();
+                // if ship spans across rows use same logic but use index of the letters
+                console.log('row logic');
+            }
         }
     }
 };

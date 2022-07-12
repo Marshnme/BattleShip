@@ -86,13 +86,17 @@ body,.gameboards{
     border:1px solid black;
     display:flex;
     flex-flow: row wrap;
-    /* width:80%; */
+    width:80%;
 
 }
 
 .ship{
     margin:.5rem;
     height:100%;
+}
+
+.hide-ship{
+    display: none;
 }
 
 .border-start{
