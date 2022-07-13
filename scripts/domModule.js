@@ -215,6 +215,10 @@ const domModule = (
                             fullSecondCord
                         );
                         draggable.classList.add('hide-ship');
+                        highLightShipPlacements(
+                            e.target.classList[1],
+                            fullSecondCord
+                        );
                         console.log(shipPlacement);
                         console.log(humanBoard);
                     }
@@ -248,6 +252,10 @@ const domModule = (
                         );
                         draggable.classList.remove('ship-rotate');
                         draggable.classList.add('hide-ship');
+                        highLightShipPlacements(
+                            e.target.classList[1],
+                            fullSecondCord
+                        );
                         console.log(shipPlacement);
                         console.log(humanBoard);
                     }
@@ -255,6 +263,104 @@ const domModule = (
                 console.log('row logic');
             }
         }
+    }
+
+    function highLightShipPlacements(cord1, cord2) {
+        // loop through all cords
+        if (shipPlacement === 'column') {
+            for (let i = 0; i < playerBoardColumns.length; i++) {
+                if (!playerBoardColumns[i].classList[1].includes('column-0')) {
+                    for (
+                        let j = 0;
+                        j < playerBoardColumns[i].children.length;
+                        j++
+                    ) {
+                        if (
+                            playerBoardColumns[i].children[
+                                j
+                            ].className.includes('number-tile')
+                        ) {
+                            if (
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[1] >=
+                                    parseInt(cord1.split('-')[1]) &&
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[1] <=
+                                    parseInt(cord2.split('-')[1]) &&
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[0] ===
+                                    cord1.split('-')[0]
+                            ) {
+                                console.log(
+                                    cord1.split('-')[1],
+                                    playerBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[1],
+                                    cord2.split('-')[1]
+                                );
+                                playerBoardColumns[i].children[j].classList.add(
+                                    'highlight'
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (shipPlacement === 'row') {
+            for (let i = 0; i < playerBoardColumns.length; i++) {
+                if (!playerBoardColumns[i].classList[1].includes('column-0')) {
+                    for (
+                        let j = 0;
+                        j < playerBoardColumns[i].children.length;
+                        j++
+                    ) {
+                        if (
+                            playerBoardColumns[i].children[
+                                j
+                            ].className.includes('number-tile')
+                        ) {
+                            if (
+                                letterColumns.indexOf(
+                                    playerBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) >=
+                                    letterColumns.indexOf(
+                                        cord1.split('-')[0]
+                                    ) &&
+                                letterColumns.indexOf(
+                                    playerBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) <=
+                                    letterColumns.indexOf(
+                                        cord2.split('-')[0]
+                                    ) &&
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[1] ===
+                                    cord1.split('-')[1]
+                            ) {
+                                console.log('hello');
+                                playerBoardColumns[i].children[j].classList.add(
+                                    'highlight'
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // looping through rows
+        console.log(playerBoardColumns);
+
+        // get all tiles between both cord points
+        // compare each cord to var
+        // if they are the same include highlight
     }
 };
 

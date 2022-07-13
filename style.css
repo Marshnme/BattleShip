@@ -153,3 +153,7 @@ body,.gameboards{
     /* transform: rotate(90deg); */
 }
 
+.column .highlight{
+    background-color:yellow;
+}
+
