@@ -65,6 +65,9 @@ body,.gameboards{
 .number-tile{
     background-color: rgb(7, 133, 133);
 }
+.highlight {
+    background-color: yellow;
+}
 
 .hit-tile{
     background-color:red;
@@ -153,7 +156,5 @@ body,.gameboards{
     /* transform: rotate(90deg); */
 }
 
-.column .highlight{
-    background-color:yellow;
-}
+
 

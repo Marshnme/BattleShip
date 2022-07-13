@@ -18,6 +18,43 @@ const gameBoardFactory = (ai = false) => {
         }
     }
 
+    function placeAiShip(length) {
+        const randomLetter =
+            letterColumns[Math.floor(Math.random() * letterColumns.length)];
+
+        const randomNumber =
+            numberRows[Math.floor(Math.random() * numberRows.length)];
+
+        let randomLetterCord2 = null;
+        let randomNumCord2 = null;
+        const fiftyFifty = Math.floor(Math.random() * 2);
+        console.log('fif', fiftyFifty);
+        if (fiftyFifty === 0 || fiftyFifty === 1) {
+            if (fiftyFifty === 0) {
+                randomLetterCord2 =
+                    letterColumns[
+                        letterColumns.indexOf(randomLetter) + parseInt(length)
+                    ];
+            } else {
+                randomNumCord2 = parseInt(randomNumber) + parseInt(length);
+            }
+        }
+
+        console.log(randomLetter, randomNumber);
+        const cord1 = `${randomLetter}-${randomNumber}`;
+        const cord2 = `${fiftyFifty === 0 ? randomLetterCord2 : randomLetter}-${
+            fiftyFifty === 1 ? randomNumCord2 : randomNumber
+        }`;
+        if (!this.ships) {
+            this.ships = [{ ship: shipFactory(length), cord1, cord2 }];
+        } else if (this.ships) {
+            this.ships = [
+                ...this.ships,
+                { ship: shipFactory(length), cord1, cord2 },
+            ];
+        }
+    }
+
     function missedShot(cord1) {
         if (!missedShots.includes(cord1)) {
             missedShots.push(cord1);
@@ -180,6 +217,7 @@ const gameBoardFactory = (ai = false) => {
 
     return {
         placeShip,
+        placeAiShip,
         receiveAttack,
         missedShots,
         allShipsDestroyed,
