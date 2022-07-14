@@ -18,6 +18,7 @@ const gameBoardFactory = (ai = false) => {
         }
     }
 
+    // CHECK IF TILE IS TAKEN BY ADDING CLASS TO PLACED TILES
     function placeAiShip(length) {
         const randomLetter =
             letterColumns[Math.floor(Math.random() * letterColumns.length)];

@@ -280,6 +280,7 @@ const domModule = (
                                 j
                             ].className.includes('number-tile')
                         ) {
+                            // get all tiles between both cord points
                             if (
                                 playerBoardColumns[i].children[
                                     j
@@ -294,13 +295,6 @@ const domModule = (
                                 ].classList[1].split('-')[0] ===
                                     cord1.split('-')[0]
                             ) {
-                                console.log(
-                                    cord1.split('-')[1],
-                                    playerBoardColumns[i].children[
-                                        j
-                                    ].classList[1].split('-')[1],
-                                    cord2.split('-')[1]
-                                );
                                 playerBoardColumns[i].children[j].classList.add(
                                     'highlight'
                                 );
@@ -322,6 +316,7 @@ const domModule = (
                                 j
                             ].className.includes('number-tile')
                         ) {
+                            // get all tiles between both cord points
                             if (
                                 letterColumns.indexOf(
                                     playerBoardColumns[i].children[
@@ -344,7 +339,6 @@ const domModule = (
                                 ].classList[1].split('-')[1] ===
                                     cord1.split('-')[1]
                             ) {
-                                console.log('hello');
                                 playerBoardColumns[i].children[j].classList.add(
                                     'highlight'
                                 );
@@ -355,12 +349,7 @@ const domModule = (
             }
         }
 
-        // looping through rows
         console.log(playerBoardColumns);
-
-        // get all tiles between both cord points
-        // compare each cord to var
-        // if they are the same include highlight
     }
 };
 
