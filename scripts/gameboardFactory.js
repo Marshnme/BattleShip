@@ -20,6 +20,15 @@ const gameBoardFactory = (ai = false) => {
 
     // CHECK IF TILE IS TAKEN BY ADDING CLASS TO PLACED TILES
     function placeAiShip(length) {
+        if (this.ships) {
+            findAllShipCord(this.ships);
+        }
+
+        const boards =
+            document.getElementsByClassName('gameboards')[0].childNodes;
+        const boardsArray = [...boards];
+        const aiBoardColumns = [...boardsArray[1].children[1].children];
+
         const randomLetter =
             letterColumns[Math.floor(Math.random() * letterColumns.length)];
 
@@ -48,6 +57,71 @@ const gameBoardFactory = (ai = false) => {
 
         if (randomNumCord2 > 10 || randomLetterCord2 === undefined) {
             return this.placeAiShip(length);
+        }
+        console.log(cord1, cord2);
+
+        for (let i = 0; i < aiBoardColumns.length; i++) {
+            if (!aiBoardColumns[i].classList[1].includes('column-0')) {
+                for (let j = 0; j < aiBoardColumns[i].children.length; j++) {
+                    if (
+                        aiBoardColumns[i].children[j].classList[0] ===
+                        'number-tile'
+                    ) {
+                        if (randomNumber === cord2.split('-')[1]) {
+                            if (
+                                letterColumns.indexOf(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) >= letterColumns.indexOf(randomLetter) &&
+                                letterColumns.indexOf(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) <=
+                                    letterColumns.indexOf(
+                                        cord2.split('-')[0]
+                                    ) &&
+                                !this.allShipCords.includes(
+                                    aiBoardColumns[i].children[j].classList[1]
+                                ) &&
+                                aiBoardColumns[i].children[j].classList[2] !==
+                                    'taken'
+                            ) {
+                                aiBoardColumns[i].children[j].classList.add(
+                                    'taken'
+                                );
+                            } else {
+                                return this.placeAiShip(length);
+                            }
+                        } else if (randomLetter === cord2.split('-')[0]) {
+                            if (
+                                parseInt(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[1]
+                                ) >= randomNumber &&
+                                parseInt(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[1]
+                                ) <= parseInt(cord2.split('-')[1]) &&
+                                !this.allShipCords.includes(
+                                    aiBoardColumns[i].children[j].classList[1]
+                                ) &&
+                                aiBoardColumns[i].children[j].classList[2] !==
+                                    'taken'
+                            ) {
+                                aiBoardColumns[i].children[j].classList.add(
+                                    'taken'
+                                );
+                            } else {
+                                return this.placeAiShip(length);
+                            }
+                        }
+                    }
+                }
+            }
         }
         if (!this.ships) {
             this.ships = [{ ship: shipFactory(length), cord1, cord2 }];

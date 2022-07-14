@@ -55,22 +55,33 @@ const gameLoop = () => {
         aiShipTen,
     ];
 
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(3);
-    aiBoard.placeAiShip(4);
-    aiBoard.placeAiShip(4);
-    aiBoard.placeAiShip(3);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(3);
-    aiBoard.placeAiShip(6);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(3);
+    // aiBoard.placeAiShip(4);
+    // aiBoard.placeAiShip(4);
+    // aiBoard.placeAiShip(3);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(3);
+    // aiBoard.placeAiShip(6);
 
     const humanPlayer = player('Joshua', aiBoard);
     const aiPlayer = player('ai', playerBoard, true);
 
     playerBoard.renderBoard(humanPlayer.playerName);
     aiBoard.renderBoard();
+    aiBoard.placeAiShip(6);
+    aiBoard.placeAiShip(2);
+    aiBoard.placeAiShip(3);
+    aiBoard.placeAiShip(4);
+    aiBoard.placeAiShip(4);
+    aiBoard.placeAiShip(3);
+    aiBoard.placeAiShip(2);
+    aiBoard.placeAiShip(2);
+    aiBoard.placeAiShip(2);
+    aiBoard.placeAiShip(3);
+
     domModule(
         playerBoard,
         humanPlayer,
