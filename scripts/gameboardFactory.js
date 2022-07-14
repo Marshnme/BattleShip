@@ -28,7 +28,7 @@ const gameBoardFactory = (ai = false) => {
         let randomLetterCord2 = null;
         let randomNumCord2 = null;
         const fiftyFifty = Math.floor(Math.random() * 2);
-        console.log('fif', fiftyFifty);
+        console.log(fiftyFifty);
         if (fiftyFifty === 0 || fiftyFifty === 1) {
             if (fiftyFifty === 0) {
                 randomLetterCord2 =
@@ -40,11 +40,14 @@ const gameBoardFactory = (ai = false) => {
             }
         }
 
-        console.log(randomLetter, randomNumber);
         const cord1 = `${randomLetter}-${randomNumber}`;
         const cord2 = `${fiftyFifty === 0 ? randomLetterCord2 : randomLetter}-${
             fiftyFifty === 1 ? randomNumCord2 : randomNumber
         }`;
+
+        if (randomNumCord2 > 10 || randomLetterCord2 === undefined) {
+            return this.placeAiShip(length);
+        }
         if (!this.ships) {
             this.ships = [{ ship: shipFactory(length), cord1, cord2 }];
         } else if (this.ships) {
