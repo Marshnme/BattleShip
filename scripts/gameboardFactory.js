@@ -74,6 +74,8 @@ const gameBoardFactory = (ai = false) => {
                         // console.log(aiBoardColumns[i].children[j]);
                         if (cord1.split('-')[0] === cord2.split('-')[0]) {
                             // columns
+                            // loop through tiles between cord1 and cord2
+                            // if any of the tiles are included in all ship tiles rerun placeship
                             if (
                                 parseInt(
                                     aiBoardColumns[i].children[
@@ -111,13 +113,12 @@ const gameBoardFactory = (ai = false) => {
 
                                 console.log(aiBoardColumns[i].children[j]);
                             }
-
-                            // loop through tiles between cord1 and cord2
-                            // if any of the tiles have 'taken' class rerun placeship
                         } else if (
                             cord1.split('-')[1] === cord2.split('-')[1]
                         ) {
                             // rows
+                            // loop through tiles between cord1 and cord2
+                            // if any of the tiles are included in all ship tiles rerun placeship
                             if (
                                 letterColumns.indexOf(
                                     aiBoardColumns[i].children[
@@ -161,8 +162,6 @@ const gameBoardFactory = (ai = false) => {
                                 }
                                 console.log(aiBoardColumns[i].children[j]);
                             }
-                            // loop through tiles between cord1 and cord2
-                            // if any of the tiles have 'taken' class rerun placeship
                         }
                     }
                 }

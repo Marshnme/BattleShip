@@ -129,11 +129,11 @@ const domModule = (
 
     function checkWin() {
         if (humanBoard.allShipsSank === true) {
-            console.log('ai wins');
+            // console.log('ai wins');
             return 'ai wins';
         }
         if (aiBoard.allShipsSank === true) {
-            console.log('player win');
+            // console.log('player win');
             return 'player wins';
         }
     }
@@ -144,7 +144,7 @@ const domModule = (
     function dragStart(e) {
         e.dataTransfer.setData('text/plain', e.target.id);
         setTimeout(() => {
-            console.log('id', e.target.id);
+            // console.log('id', e.target.id);
             e.target.classList.add('hide-ship');
         }, 0);
     }
@@ -209,18 +209,30 @@ const domModule = (
                         }`;
                         // if cord 1 num is less than 1 or cord 2 num is greater than 10
                         // do not place ship. Add 'taken' class to grid to stop placement if already taken
-                        humanBoard.placeShip(
-                            playerShips[i].length,
-                            e.target.classList[1],
-                            fullSecondCord
-                        );
-                        draggable.classList.add('hide-ship');
-                        highLightShipPlacements(
-                            e.target.classList[1],
-                            fullSecondCord
-                        );
-                        console.log(shipPlacement);
-                        console.log(humanBoard);
+                        if (
+                            parseInt(e.target.classList[1].split('-')[1]) < 1 ||
+                            parseInt(fullSecondCord.split('-')[1]) > 10
+                        ) {
+                            return;
+                        }
+                        if (
+                            parseInt(e.target.classList[1].split('-')[1]) > 1 &&
+                            parseInt(fullSecondCord.split('-')[1]) < 10
+                        ) {
+                            console.log('fullsecond cord', fullSecondCord);
+                            humanBoard.placeShip(
+                                playerShips[i].length,
+                                e.target.classList[1],
+                                fullSecondCord
+                            );
+                            // draggable.classList.add('hide-ship');
+                            highLightShipPlacements(
+                                e.target.classList[1],
+                                fullSecondCord
+                            );
+                            // console.log(shipPlacement);
+                            console.log(humanBoard);
+                        }
                     }
                 }
             } else if (shipPlacement === 'row') {
@@ -245,6 +257,38 @@ const domModule = (
                         const fullSecondCord = `${letterColumns[secondCordLetter]}-${secondCordNum}`;
                         // if cord 1 num is less than 1 or cord 2 num is greater than 10
                         // do not place ship. Add 'taken' class to grid to stop placement if already taken
+                        if (
+                            letterColumns.indexOf(
+                                e.target.classList[1].split('-')[0]
+                            ) < letterColumns.indexOf('A') ||
+                            letterColumns.indexOf(
+                                fullSecondCord.split('-')[0]
+                            ) > 10
+                        ) {
+                            return;
+                        }
+                        if (
+                            letterColumns.indexOf(
+                                e.target.classList[1].split('-')[0]
+                            ) > 1 &&
+                            letterColumns.indexOf(
+                                fullSecondCord.split('-')[0]
+                            ) < 10
+                        ) {
+                            console.log('fullsecond cord', fullSecondCord);
+                            humanBoard.placeShip(
+                                playerShips[i].length,
+                                e.target.classList[1],
+                                fullSecondCord
+                            );
+                            // draggable.classList.add('hide-ship');
+                            highLightShipPlacements(
+                                e.target.classList[1],
+                                fullSecondCord
+                            );
+                            // console.log(shipPlacement);
+                            console.log(humanBoard);
+                        }
                         humanBoard.placeShip(
                             playerShips[i].length,
                             e.target.classList[1],
@@ -256,11 +300,10 @@ const domModule = (
                             e.target.classList[1],
                             fullSecondCord
                         );
-                        console.log(shipPlacement);
-                        console.log(humanBoard);
+                        // console.log(shipPlacement);
+                        // console.log(humanBoard);
                     }
                 }
-                console.log('row logic');
             }
         }
     }
@@ -295,6 +338,10 @@ const domModule = (
                                 ].classList[1].split('-')[0] ===
                                     cord1.split('-')[0]
                             ) {
+                                console.log(
+                                    'hightlight',
+                                    playerBoardColumns[i].children[j]
+                                );
                                 playerBoardColumns[i].children[j].classList.add(
                                     'highlight'
                                 );
