@@ -1,14 +1,7 @@
 import endGame from './endGame.js';
 import player from './player-ai.js';
 
-const domModule = (
-    humanBoard,
-    humanPlayer,
-    aiBoard,
-    aiPlayer,
-    playerShips,
-    aiShips
-) => {
+const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer, playerShips) => {
     const letterColumns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     let shipPlacement = 'column';
     const boards = document.getElementsByClassName('gameboards')[0].childNodes;
@@ -27,7 +20,6 @@ const domModule = (
         } else if (shipPlacement === 'row') {
             shipPlacement = 'column';
         }
-        console.log(shipPlacement);
     });
 
     const playerShipHolder = document.createElement('div');
@@ -46,17 +38,11 @@ const domModule = (
         });
         for (let j = 0; j < playerShips[i].length; j++) {
             const shipTile = document.createElement('div');
-            // if (j === 0) {
-            //     shipTile.classList.add('border-start');
-            //     ship.appendChild(shipTile);
-            // } else if (j === playerShips[i].length - 1) {
-            //     shipTile.classList.add('border-end');
-            //     ship.appendChild(shipTile);
-            // } else {
+
             shipTile.classList.add('border');
             ship.appendChild(shipTile);
         }
-        // }
+
         playerShipHolder.appendChild(ship);
     }
 
@@ -73,7 +59,7 @@ const domModule = (
                     const currentAttack = humanPlayer.attack(
                         tile.children[i].classList[1]
                     );
-                    console.log(aiBoard);
+
                     if (
                         aiBoard.allShipCords.includes(
                             tile.children[i].classList[1]
@@ -92,7 +78,7 @@ const domModule = (
                         return console.log('stop ai attack');
                     }
                     const currentAiAttack = aiPlayer.aiAttack();
-                    // console.log(currentAiAttack);
+
                     humanBoardRefresh(currentAiAttack);
                     checkWin();
                     if (checkWin() === 'ai wins') {
@@ -104,7 +90,6 @@ const domModule = (
     });
 
     function humanBoardRefresh(currentAiAttack) {
-        console.log(humanBoard);
         playerBoardColumns.map((tile) => {
             for (let i = 0; i < tile.children.length; i++) {
                 if (
@@ -129,22 +114,18 @@ const domModule = (
 
     function checkWin() {
         if (humanBoard.allShipsSank === true) {
-            // console.log('ai wins');
             return 'ai wins';
         }
         if (aiBoard.allShipsSank === true) {
-            // console.log('player win');
             return 'player wins';
         }
     }
 
     // DRAG AND DROP
-    // console.log(playerBoardColumns);
 
     function dragStart(e) {
         e.dataTransfer.setData('text/plain', e.target.id);
         setTimeout(() => {
-            // console.log('id', e.target.id);
             // e.target.classList.add('hide-ship');
         }, 0);
     }
@@ -190,6 +171,10 @@ const domModule = (
 
     function dropEle(e) {
         e.preventDefault();
+        if (humanBoard.ships) {
+            humanBoard.findAllShipCord(humanBoard.ships);
+        }
+
         if (e.target.classList[0].includes('number-tile')) {
             const id = e.dataTransfer.getData('text/plain');
             const draggable = document.getElementById(id);
@@ -220,6 +205,15 @@ const domModule = (
                                 1 &&
                             parseInt(fullSecondCord.split('-')[1]) <= 10
                         ) {
+                            if (
+                                checkIfTaken(
+                                    e.target.classList[1],
+                                    fullSecondCord
+                                ) === 'tile taken'
+                            ) {
+                                return;
+                            }
+
                             console.log('fullsecond cord', fullSecondCord);
                             humanBoard.placeShip(
                                 playerShips[i].length,
@@ -231,7 +225,7 @@ const domModule = (
                                 e.target.classList[1],
                                 fullSecondCord
                             );
-                            // console.log(shipPlacement);
+
                             console.log(humanBoard);
                         }
                     }
@@ -254,7 +248,7 @@ const domModule = (
                             1;
                         const secondCordNum =
                             e.target.classList[1].split('-')[1];
-                        console.log('LETTER', secondCordLetter);
+
                         const fullSecondCord = `${letterColumns[secondCordLetter]}-${secondCordNum}`;
                         // if cord 1 num is less than 1 or cord 2 num is greater than 10
                         // do not place ship. Add 'taken' class to grid to stop placement if already taken
@@ -277,7 +271,15 @@ const domModule = (
                                 fullSecondCord.split('-')[0]
                             ) <= letterColumns.indexOf('J')
                         ) {
-                            console.log('fullsecond cord', fullSecondCord);
+                            if (
+                                checkIfTaken(
+                                    e.target.classList[1],
+                                    fullSecondCord
+                                ) === 'tile taken'
+                            ) {
+                                return;
+                            }
+
                             humanBoard.placeShip(
                                 playerShips[i].length,
                                 e.target.classList[1],
@@ -289,18 +291,104 @@ const domModule = (
                                 fullSecondCord
                             );
                             draggable.classList.add('hide-ship');
-                            // console.log(shipPlacement);
+
                             console.log(humanBoard);
                         }
+                    }
+                }
+            }
+        }
+    }
 
-                        // draggable.classList.remove('ship-rotate');
-                        // draggable.classList.add('hide-ship');
-                        // highLightShipPlacements(
-                        //     e.target.classList[1],
-                        //     fullSecondCord
-                        // );
-                        // console.log(shipPlacement);
-                        // console.log(humanBoard);
+    function checkIfTaken(cord1, cord2) {
+        // loop through all cords
+        if (shipPlacement === 'column') {
+            for (let i = 0; i < playerBoardColumns.length; i++) {
+                if (!playerBoardColumns[i].classList[1].includes('column-0')) {
+                    for (
+                        let j = 0;
+                        j < playerBoardColumns[i].children.length;
+                        j++
+                    ) {
+                        if (
+                            playerBoardColumns[i].children[
+                                j
+                            ].className.includes('number-tile')
+                        ) {
+                            // get all tiles between both cord points
+                            if (
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[1] >=
+                                    parseInt(cord1.split('-')[1]) &&
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[1] <=
+                                    parseInt(cord2.split('-')[1]) &&
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[0] ===
+                                    cord1.split('-')[0]
+                            ) {
+                                if (
+                                    humanBoard.allShipCords.includes(
+                                        playerBoardColumns[i].children[j]
+                                            .classList[1]
+                                    )
+                                ) {
+                                    return 'tile taken';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (shipPlacement === 'row') {
+            for (let i = 0; i < playerBoardColumns.length; i++) {
+                if (!playerBoardColumns[i].classList[1].includes('column-0')) {
+                    for (
+                        let j = 0;
+                        j < playerBoardColumns[i].children.length;
+                        j++
+                    ) {
+                        if (
+                            playerBoardColumns[i].children[
+                                j
+                            ].className.includes('number-tile')
+                        ) {
+                            // get all tiles between both cord points
+                            if (
+                                letterColumns.indexOf(
+                                    playerBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) >=
+                                    letterColumns.indexOf(
+                                        cord1.split('-')[0]
+                                    ) &&
+                                letterColumns.indexOf(
+                                    playerBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) <=
+                                    letterColumns.indexOf(
+                                        cord2.split('-')[0]
+                                    ) &&
+                                playerBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[1] ===
+                                    cord1.split('-')[1]
+                            ) {
+                                if (
+                                    humanBoard.allShipCords.includes(
+                                        playerBoardColumns[i].children[j]
+                                            .classList[1]
+                                    )
+                                ) {
+                                    return 'tile taken';
+                                }
+                            }
+                        }
                     }
                 }
             }

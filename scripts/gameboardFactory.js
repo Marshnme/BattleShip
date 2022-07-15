@@ -23,7 +23,6 @@ const gameBoardFactory = (ai = false) => {
     function placeAiShip(length) {
         if (this.ships) {
             findAllShipCord(this.ships);
-            console.log(this.allShipCords);
         }
 
         const boards =
@@ -62,7 +61,6 @@ const gameBoardFactory = (ai = false) => {
         if (randomNumCord2 > 10 || randomLetterCord2 === undefined) {
             return this.placeAiShip(length);
         }
-        console.log(cord1, cord2);
 
         for (let i = 0; i < aiBoardColumns.length; i++) {
             if (!aiBoardColumns[i].classList[1].includes('column-0')) {
@@ -71,7 +69,6 @@ const gameBoardFactory = (ai = false) => {
                         aiBoardColumns[i].children[j].classList[0] ===
                         'number-tile'
                     ) {
-                        // console.log(aiBoardColumns[i].children[j]);
                         if (cord1.split('-')[0] === cord2.split('-')[0]) {
                             // columns
                             // loop through tiles between cord1 and cord2
@@ -93,12 +90,6 @@ const gameBoardFactory = (ai = false) => {
                                     cord1.split('-')[0]
                             ) {
                                 if (this.ships) {
-                                    console.log(
-                                        this.allShipCords.includes(
-                                            aiBoardColumns[i].children[j]
-                                                .classList[1]
-                                        )
-                                    );
                                     if (
                                         this.allShipCords.includes(
                                             aiBoardColumns[i].children[j]
@@ -110,8 +101,6 @@ const gameBoardFactory = (ai = false) => {
                                         return this.placeAiShip(length);
                                     }
                                 }
-
-                                console.log(aiBoardColumns[i].children[j]);
                             }
                         } else if (
                             cord1.split('-')[1] === cord2.split('-')[1]
@@ -143,12 +132,6 @@ const gameBoardFactory = (ai = false) => {
                                 ) === parseInt(cord1.split('-')[1])
                             ) {
                                 if (this.ships) {
-                                    console.log(
-                                        this.allShipCords.includes(
-                                            aiBoardColumns[i].children[j]
-                                                .classList[1]
-                                        )
-                                    );
                                     if (
                                         this.allShipCords.includes(
                                             aiBoardColumns[i].children[j]
@@ -160,7 +143,6 @@ const gameBoardFactory = (ai = false) => {
                                         return this.placeAiShip(length);
                                     }
                                 }
-                                console.log(aiBoardColumns[i].children[j]);
                             }
                         }
                     }
@@ -287,8 +269,6 @@ const gameBoardFactory = (ai = false) => {
 
     function allShipsDestroyed() {
         for (let i = 0; i <= this.ships.length - 1; i++) {
-            console.log('index', i);
-            console.log(this.ships);
             if (this.ships[i].ship.sunk === false) {
                 this.allShipsSank = false;
                 return false;
@@ -347,6 +327,7 @@ const gameBoardFactory = (ai = false) => {
         allShipsSank,
         allShipCords,
         renderBoard,
+        findAllShipCord,
     };
 };
 
