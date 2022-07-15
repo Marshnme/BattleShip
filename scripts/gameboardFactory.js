@@ -63,7 +63,62 @@ const gameBoardFactory = (ai = false) => {
                         aiBoardColumns[i].children[j].classList[0] ===
                         'number-tile'
                     ) {
-                        console.log(aiBoardColumns[i].children[j]);
+                        // console.log(aiBoardColumns[i].children[j]);
+                        if (cord1.split('-')[0] === cord2.split('-')[0]) {
+                            // columns
+                            if (
+                                parseInt(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[1]
+                                ) >= parseInt(cord1.split('-')[1]) &&
+                                parseInt(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[1]
+                                ) <= parseInt(cord2.split('-')[1]) &&
+                                aiBoardColumns[i].children[
+                                    j
+                                ].classList[1].split('-')[0] ===
+                                    cord1.split('-')[0]
+                            ) {
+                                console.log(aiBoardColumns[i].children[j]);
+                            }
+
+                            // loop through tiles between cord1 and cord2
+                            // if any of the tiles have 'taken' class rerun placeship
+                        } else if (
+                            cord1.split('-')[1] === cord2.split('-')[1]
+                        ) {
+                            // rows
+                            if (
+                                letterColumns.indexOf(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) >=
+                                    letterColumns.indexOf(
+                                        cord1.split('-')[0]
+                                    ) &&
+                                letterColumns.indexOf(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[0]
+                                ) <=
+                                    letterColumns.indexOf(
+                                        cord2.split('-')[0]
+                                    ) &&
+                                parseInt(
+                                    aiBoardColumns[i].children[
+                                        j
+                                    ].classList[1].split('-')[1]
+                                ) === parseInt(cord1.split('-')[1])
+                            ) {
+                                console.log(aiBoardColumns[i].children[j]);
+                            }
+                            // loop through tiles between cord1 and cord2
+                            // if any of the tiles have 'taken' class rerun placeship
+                        }
                     }
                 }
             }
