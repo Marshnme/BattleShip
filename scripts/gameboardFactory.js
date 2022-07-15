@@ -20,10 +20,6 @@ const gameBoardFactory = (ai = false) => {
 
     // CHECK IF TILE IS TAKEN BY ADDING CLASS TO PLACED TILES
     function placeAiShip(length) {
-        if (this.ships) {
-            findAllShipCord(this.ships);
-        }
-
         const boards =
             document.getElementsByClassName('gameboards')[0].childNodes;
         const boardsArray = [...boards];
@@ -38,7 +34,7 @@ const gameBoardFactory = (ai = false) => {
         let randomLetterCord2 = null;
         let randomNumCord2 = null;
         const fiftyFifty = Math.floor(Math.random() * 2);
-        console.log(fiftyFifty);
+
         if (fiftyFifty === 0 || fiftyFifty === 1) {
             if (fiftyFifty === 0) {
                 randomLetterCord2 =
@@ -67,62 +63,12 @@ const gameBoardFactory = (ai = false) => {
                         aiBoardColumns[i].children[j].classList[0] ===
                         'number-tile'
                     ) {
-                        if (randomNumber === cord2.split('-')[1]) {
-                            if (
-                                letterColumns.indexOf(
-                                    aiBoardColumns[i].children[
-                                        j
-                                    ].classList[1].split('-')[0]
-                                ) >= letterColumns.indexOf(randomLetter) &&
-                                letterColumns.indexOf(
-                                    aiBoardColumns[i].children[
-                                        j
-                                    ].classList[1].split('-')[0]
-                                ) <=
-                                    letterColumns.indexOf(
-                                        cord2.split('-')[0]
-                                    ) &&
-                                !this.allShipCords.includes(
-                                    aiBoardColumns[i].children[j].classList[1]
-                                ) &&
-                                aiBoardColumns[i].children[j].classList[2] !==
-                                    'taken'
-                            ) {
-                                aiBoardColumns[i].children[j].classList.add(
-                                    'taken'
-                                );
-                            } else {
-                                return this.placeAiShip(length);
-                            }
-                        } else if (randomLetter === cord2.split('-')[0]) {
-                            if (
-                                parseInt(
-                                    aiBoardColumns[i].children[
-                                        j
-                                    ].classList[1].split('-')[1]
-                                ) >= randomNumber &&
-                                parseInt(
-                                    aiBoardColumns[i].children[
-                                        j
-                                    ].classList[1].split('-')[1]
-                                ) <= parseInt(cord2.split('-')[1]) &&
-                                !this.allShipCords.includes(
-                                    aiBoardColumns[i].children[j].classList[1]
-                                ) &&
-                                aiBoardColumns[i].children[j].classList[2] !==
-                                    'taken'
-                            ) {
-                                aiBoardColumns[i].children[j].classList.add(
-                                    'taken'
-                                );
-                            } else {
-                                return this.placeAiShip(length);
-                            }
-                        }
+                        console.log(aiBoardColumns[i].children[j]);
                     }
                 }
             }
         }
+
         if (!this.ships) {
             this.ships = [{ ship: shipFactory(length), cord1, cord2 }];
         } else if (this.ships) {

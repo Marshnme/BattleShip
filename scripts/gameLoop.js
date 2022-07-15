@@ -72,15 +72,15 @@ const gameLoop = () => {
     playerBoard.renderBoard(humanPlayer.playerName);
     aiBoard.renderBoard();
     aiBoard.placeAiShip(6);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(3);
-    aiBoard.placeAiShip(4);
-    aiBoard.placeAiShip(4);
-    aiBoard.placeAiShip(3);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(2);
-    aiBoard.placeAiShip(3);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(3);
+    // aiBoard.placeAiShip(4);
+    // aiBoard.placeAiShip(4);
+    // aiBoard.placeAiShip(3);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(2);
+    // aiBoard.placeAiShip(3);
 
     domModule(
         playerBoard,
