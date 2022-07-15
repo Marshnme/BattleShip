@@ -6,6 +6,7 @@ const gameBoardFactory = (ai = false) => {
     const missedShots = [];
     const allShipCords = [];
     const allShipsSank = false;
+    const ships = [];
 
     function placeShip(length, cord1, cord2) {
         if (!this.ships) {
@@ -20,6 +21,11 @@ const gameBoardFactory = (ai = false) => {
 
     // CHECK IF TILE IS TAKEN BY ADDING CLASS TO PLACED TILES
     function placeAiShip(length) {
+        if (this.ships) {
+            findAllShipCord(this.ships);
+            console.log(this.allShipCords);
+        }
+
         const boards =
             document.getElementsByClassName('gameboards')[0].childNodes;
         const boardsArray = [...boards];
@@ -39,10 +45,12 @@ const gameBoardFactory = (ai = false) => {
             if (fiftyFifty === 0) {
                 randomLetterCord2 =
                     letterColumns[
-                        letterColumns.indexOf(randomLetter) + parseInt(length)
+                        letterColumns.indexOf(randomLetter) +
+                            parseInt(length) -
+                            1
                     ];
             } else {
-                randomNumCord2 = parseInt(randomNumber) + parseInt(length);
+                randomNumCord2 = parseInt(randomNumber) + parseInt(length) - 1;
             }
         }
 
@@ -82,6 +90,25 @@ const gameBoardFactory = (ai = false) => {
                                 ].classList[1].split('-')[0] ===
                                     cord1.split('-')[0]
                             ) {
+                                if (this.ships) {
+                                    console.log(
+                                        this.allShipCords.includes(
+                                            aiBoardColumns[i].children[j]
+                                                .classList[1]
+                                        )
+                                    );
+                                    if (
+                                        this.allShipCords.includes(
+                                            aiBoardColumns[i].children[j]
+                                                .classList[1] ||
+                                                aiBoardColumns[i].children[j]
+                                                    .classList[2] === 'taken'
+                                        )
+                                    ) {
+                                        return this.placeAiShip(length);
+                                    }
+                                }
+
                                 console.log(aiBoardColumns[i].children[j]);
                             }
 
@@ -114,6 +141,24 @@ const gameBoardFactory = (ai = false) => {
                                     ].classList[1].split('-')[1]
                                 ) === parseInt(cord1.split('-')[1])
                             ) {
+                                if (this.ships) {
+                                    console.log(
+                                        this.allShipCords.includes(
+                                            aiBoardColumns[i].children[j]
+                                                .classList[1]
+                                        )
+                                    );
+                                    if (
+                                        this.allShipCords.includes(
+                                            aiBoardColumns[i].children[j]
+                                                .classList[1] ||
+                                                aiBoardColumns[i].children[j]
+                                                    .classList[2] === 'taken'
+                                        )
+                                    ) {
+                                        return this.placeAiShip(length);
+                                    }
+                                }
                                 console.log(aiBoardColumns[i].children[j]);
                             }
                             // loop through tiles between cord1 and cord2
