@@ -10,9 +10,12 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer, playerShips) => {
     const playerBoardColumns = [...boardsArray[0].children[1].children];
     const aiBoardColumns = [...boardsArray[1].children[1].children];
 
+    const buttonHolder = document.createElement('div');
+    buttonHolder.classList.add('center-button');
     const rotateButton = document.createElement('button');
     rotateButton.textContent = 'Rotate Ships';
     rotateButton.classList.add('rotate-button');
+    buttonHolder.appendChild(rotateButton);
 
     rotateButton.addEventListener('click', () => {
         if (shipPlacement === 'column') {
@@ -22,31 +25,32 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer, playerShips) => {
         }
     });
 
+    const ships = document.createElement('div');
+    ships.classList.add('player-ships');
     const playerShipHolder = document.createElement('div');
-    playerShipHolder.appendChild(rotateButton);
+    playerShipHolder.appendChild(buttonHolder);
+    playerShipHolder.classList.add('ship-holder');
+    playerShipHolder.appendChild(ships);
+    rotateButton.addEventListener('click', () => {
+        ships.classList.toggle('ship-rotate');
+    });
     for (let i = 0; i < playerShips.length; i++) {
         const ship = document.createElement('div');
         ship.addEventListener('dragstart', dragStart);
         ship.setAttribute('draggable', true);
         ship.classList.add('ship', 'shark-img');
         ship.setAttribute('id', `ship-${i}`);
-        rotateButton.addEventListener('click', () => {
-            ship.classList.toggle('ship-rotate');
-            ship.classList.toggle('shark-img');
-
-            ship.classList.toggle('shark-rotate');
-        });
+        ships.appendChild(ship);
         for (let j = 0; j < playerShips[i].length; j++) {
             const shipTile = document.createElement('div');
 
             shipTile.classList.add('border');
             ship.appendChild(shipTile);
         }
-
-        playerShipHolder.appendChild(ship);
+        playerShipHolder.appendChild(ships);
     }
 
-    playerShipHolder.classList.add('ship-holder');
+    console.log('BOARD ARRAY', boardsArray[0].children[1]);
     boardsArray[0].appendChild(playerShipHolder);
 
     aiBoardColumns.map((tile) => {
@@ -82,7 +86,7 @@ const domModule = (humanBoard, humanPlayer, aiBoard, aiPlayer, playerShips) => {
                     humanBoardRefresh(currentAiAttack);
                     checkWin();
                     if (checkWin() === 'ai wins') {
-                        return endGame('AI Wins!');
+                        return endGame('AI');
                     }
                 });
             }

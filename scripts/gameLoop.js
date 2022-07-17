@@ -55,17 +55,6 @@ const gameLoop = () => {
         aiShipTen,
     ];
 
-    // aiBoard.placeAiShip(2);
-    // aiBoard.placeAiShip(3);
-    // aiBoard.placeAiShip(4);
-    // aiBoard.placeAiShip(4);
-    // aiBoard.placeAiShip(3);
-    // aiBoard.placeAiShip(2);
-    // aiBoard.placeAiShip(2);
-    // aiBoard.placeAiShip(2);
-    // aiBoard.placeAiShip(3);
-    // aiBoard.placeAiShip(6);
-
     const humanPlayer = player('Joshua', aiBoard);
     const aiPlayer = player('ai', playerBoard, true);
 
@@ -94,3 +83,5 @@ const gameLoop = () => {
 };
 
 gameLoop();
+
+export default gameLoop;
