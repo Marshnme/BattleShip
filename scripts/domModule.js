@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import endGame from './endGame.js';
 import player from './player-ai.js';
 
